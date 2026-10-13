@@ -1,0 +1,57 @@
+
+import heapq
+
+graph = {
+    'A': [('B', 1), ('C', 3)],
+    'B': [('D', 3), ('E', 5)],
+    'C': [('F', 2)],
+    'D': [('G', 4)],
+    'E': [('G', 2)],
+    'F': [('G', 3)],
+    'G': []
+}
+
+h = {
+    'A': 6,
+    'B': 5,
+    'C': 4,
+    'D': 4,
+    'E': 2,
+    'F': 3,
+    'G': 0
+}
+
+def astar(start, goal):
+    pq = [(h[start], 0, start, [start])]
+    best_cost = {start: 0}
+
+    while pq:
+        f, g, node, path = heapq.heappop(pq)
+
+        if g != best_cost.get(node):
+            continue
+
+        if node == goal:
+            return path, g
+
+        for neighbor, cost in graph[node]:
+            new_g = g + cost
+
+            if new_g < best_cost.get(neighbor, float('inf')):
+                best_cost[neighbor] = new_g
+                new_f = new_g + h[neighbor]
+
+                heapq.heappush(
+                    pq,
+                    (new_f, new_g, neighbor, path + [neighbor])
+                )
+
+    return None, None
+
+path, cost = astar('A', 'G')
+
+if path:
+    print("Shortest Path:", " -> ".join(path))
+    print("Total Cost:", cost)
+else:
+    print("No path found")

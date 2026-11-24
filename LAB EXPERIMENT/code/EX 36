@@ -1,0 +1,29 @@
+import math
+
+data = [[2, 4], [4, 6], [6, 8], [8, 10], [10, 12]]
+
+mean = [sum(col) / len(data) for col in zip(*data)]
+
+centered = [[x - mean[0], y - mean[1]] for x, y in data]
+
+cov = [
+    [sum(row[0] * row[0] for row in centered) / (len(data) - 1),
+     sum(row[0] * row[1] for row in centered) / (len(data) - 1)],
+    [sum(row[0] * row[1] for row in centered) / (len(data) - 1),
+     sum(row[1] * row[1] for row in centered) / (len(data) - 1)]
+]
+
+v = [1, 1]
+
+for _ in range(100):
+    w = [cov[0][0] * v[0] + cov[0][1] * v[1],
+         cov[1][0] * v[0] + cov[1][1] * v[1]]
+    norm = math.sqrt(w[0]**2 + w[1]**2)
+    v = [w[0] / norm, w[1] / norm]
+
+reduced = [row[0] * v[0] + row[1] * v[1] for row in centered]
+
+print("Original Data:", data)
+print("Reduced Data:")
+for r in reduced:
+    print(round(r, 2))

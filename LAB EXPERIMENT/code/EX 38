@@ -1,0 +1,19 @@
+data = [2, 3, 4, 10, 11, 12]
+k = 2
+
+centers = [3, 10]
+
+for _ in range(5):
+    clusters = [[], []]
+
+    for x in data:
+        if abs(x - centers[0]) < abs(x - centers[1]):
+            clusters[0].append(x)
+        else:
+            clusters[1].append(x)
+
+    centers = [sum(c) / len(c) for c in clusters]
+
+print("Cluster 1:", clusters[0])
+print("Cluster 2:", clusters[1])
+print("Cluster Centers:", centers)

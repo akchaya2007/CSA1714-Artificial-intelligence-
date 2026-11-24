@@ -1,0 +1,35 @@
+
+% Animal facts
+animal(dog).
+animal(cat).
+animal(cow).
+animal(eagle).
+animal(parrot).
+animal(snake).
+animal(crocodile).
+animal(fish).
+animal(dolphin).
+animal(whale).
+
+% Classification facts
+mammal(dog).
+mammal(cat).
+mammal(cow).
+mammal(dolphin).
+mammal(whale).
+
+bird(eagle).
+bird(parrot).
+
+reptile(snake).
+reptile(crocodile).
+
+aquatic(fish).
+aquatic(dolphin).
+aquatic(whale).
+
+% Classification rules
+classify(X, mammal) :- mammal(X).
+classify(X, bird) :- bird(X).
+classify(X, reptile) :- reptile(X).
+classify(X, aquatic_animal) :- aquatic(X).

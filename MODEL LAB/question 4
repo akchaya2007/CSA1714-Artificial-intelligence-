@@ -1,0 +1,9 @@
+% Fact
+studies(ravi).
+
+% Rules
+gains_knowledge(X) :- studies(X).
+passes_exam(X) :- gains_knowledge(X).
+
+% Forward chaining query
+prove(X) :- passes_exam(X).

@@ -1,0 +1,48 @@
+
+import random
+
+items = [(2, 10), (3, 15), (5, 25), (7, 35), (1, 5)]
+capacity = 10
+
+def fitness(chromosome):
+    weight = sum(items[i][0] for i in range(len(items)) if chromosome[i])
+    value = sum(items[i][1] for i in range(len(items)) if chromosome[i])
+    return value if weight <= capacity else 0
+
+population = [
+    [random.randint(0, 1) for _ in items]
+    for _ in range(10)
+]
+
+for generation in range(50):
+    population.sort(key=fitness, reverse=True)
+    new_population = population[:2]
+
+    while len(new_population) < 10:
+        parent1 = random.choice(population[:5])
+        parent2 = random.choice(population[:5])
+
+        point = random.randint(1, len(items) - 1)
+        child = parent1[:point] + parent2[point:]
+
+        if random.random() < 0.1:
+            index = random.randint(0, len(items) - 1)
+            child[index] = 1 - child[index]
+
+        new_population.append(child)
+
+    population = new_population
+
+best = max(population, key=fitness)
+
+print("Selected Items:")
+total_weight = 0
+
+for i in range(len(items)):
+    if best[i]:
+        print("Item", i + 1, "- Weight:", items[i][0],
+              "Value:", items[i][1])
+        total_weight += items[i][0]
+
+print("Total Weight:", total_weight)
+print("Maximum Fitness Value:", fitness(best))

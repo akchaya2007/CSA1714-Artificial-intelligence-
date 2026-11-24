@@ -1,0 +1,28 @@
+ratings = {
+    "Alice": {"Movie1": 5, "Movie2": 4, "Movie3": 0, "Movie4": 0},
+    "Bob": {"Movie1": 4, "Movie2": 5, "Movie3": 4, "Movie4": 0},
+    "Charlie": {"Movie1": 0, "Movie2": 0, "Movie3": 5, "Movie4": 4},
+    "David": {"Movie1": 5, "Movie2": 4, "Movie3": 0, "Movie4": 5}
+}
+
+user = "Alice"
+
+scores = {}
+
+for movie in ratings[user]:
+    if ratings[user][movie] == 0:
+        total = 0
+        count = 0
+
+        for other in ratings:
+            if other != user and ratings[other][movie] > 0:
+                total += ratings[other][movie]
+                count += 1
+
+        if count > 0:
+            scores[movie] = total / count
+
+print("Recommendations for", user, ":")
+
+for movie, score in scores.items():
+    print(movie, "Rating:", round(score, 2))

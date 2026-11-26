@@ -1,0 +1,46 @@
+edge(a, b).
+edge(a, c).
+edge(b, d).
+edge(b, e).
+edge(c, f).
+edge(c, g).
+
+heuristic(b, 4).
+heuristic(c, 2).
+heuristic(d, 6).
+heuristic(e, 5).
+heuristic(f, 1).
+heuristic(g, 3).
+
+bestfirst(Start, Goal) :-
+    search([Start], Goal).
+
+search([Goal|_], Goal) :-
+    write('Goal Found: '), write(Goal).
+
+search([Node|Rest], Goal) :-
+    findall(X, edge(Node, X), Children),
+    append(Children, Rest, NewList),
+    sort_by_heuristic(NewList, Sorted),
+    search(Sorted, Goal).
+
+sort_by_heuristic([], []).
+sort_by_heuristic([X], [X]).
+sort_by_heuristic([X,Y|T], Sorted) :-
+    heuristic(X, HX),
+    heuristic(Y, HY),
+    (HX =< HY ->
+        sort_by_heuristic([X|T], S1),
+        insert_node(Y, S1, Sorted)
+    ;
+        sort_by_heuristic([Y|T], S1),
+        insert_node(X, S1, Sorted)
+    ).
+
+insert_node(X, [], [X]).
+insert_node(X, [Y|T], [X,Y|T]) :-
+    heuristic(X, HX),
+    heuristic(Y, HY),
+    HX =< HY.
+insert_node(X, [Y|T], [Y|R]) :-
+    insert_node(X, T, R).

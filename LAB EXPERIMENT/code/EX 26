@@ -1,0 +1,3 @@
+studies(raj).
+has_knowledge(X) :- studies(X).
+passes(X) :- has_knowledge(X).

@@ -1,0 +1,13 @@
+at(monkey, door).
+at(banana, middle).
+at(box, corner).
+
+move(monkey, door, middle).
+move(monkey, middle, banana).
+
+can_get_banana :-
+    at(monkey, door),
+    at(box, corner),
+    move(monkey, door, middle),
+    move(monkey, middle, banana),
+    write('Monkey gets the banana').

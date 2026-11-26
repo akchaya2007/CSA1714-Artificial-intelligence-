@@ -1,0 +1,17 @@
+symptom(ravi, fever).
+symptom(ravi, cough).
+
+symptom(anu, headache).
+symptom(anu, nausea).
+
+diagnosis(X, flu) :-
+    symptom(X, fever),
+    symptom(X, cough).
+
+diagnosis(X, migraine) :-
+    symptom(X, headache),
+    symptom(X, nausea).
+
+diagnosis(X, cold) :-
+    symptom(X, cough),
+    symptom(X, sneezing).

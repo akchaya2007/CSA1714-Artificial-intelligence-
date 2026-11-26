@@ -1,0 +1,14 @@
+diet(diabetes, oats).
+diet(diabetes, vegetables).
+diet(diabetes, fruits).
+
+diet(hypertension, low_salt_food).
+diet(hypertension, vegetables).
+diet(hypertension, fruits).
+
+diet(anemia, spinach).
+diet(anemia, beans).
+diet(anemia, dates).
+
+diet(cold, warm_soup).
+diet(cold, warm_water).
